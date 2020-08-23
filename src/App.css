@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  cursor: pointer
 }
 
 .App-logo {
@@ -28,6 +29,16 @@
   color: #61dafb;
 }
 
+.master-root {
+  margin: 20px auto;
+  position: relative;
+  min-height: 300px;
+  max-height: 100px;
+  width: 300px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +46,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.spotifyGreenButton {
+  font-size: 18px;
+  line-height: 1;
+  border-radius: 500px;
+  color: #FFF;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #1db954;
+}
+
+.landingBackground {
+  background-color: #b3cdd1;
+  background-image: linear-gradient(315deg, #b3cdd1 0%, #9fa4c4 74%);
+
 }

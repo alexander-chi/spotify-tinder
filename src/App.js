@@ -95,7 +95,7 @@ function App() {
         let currentLikedArtists = likedArtists
         currentLikedArtists.push(artistId)
         setLikedArtists(currentLikedArtists)
-        
+
         let reqObj = {
             method: 'GET',
             headers: {

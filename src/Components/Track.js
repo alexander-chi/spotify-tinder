@@ -26,12 +26,13 @@ function Track(props) {
                     backgroundRepeat: "no-repeat",
                     backgroundAttachment: "fixed",
                     backgroundPosition: "center",
-                    backgroundSize: "cover"
+                    backgroundSize: "cover",
 
                 }}
             >
 
-                <div className="text-white text-left mt-auto mx-2">
+                <div className="text-white text-left mt-auto px-2 pt-5"
+                    style={{background: "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)"}}>
                     <div className="mx-2">
                         <h4>{props.track.name}</h4>
                         <p className="mb-0">{artistList.join(", ")}</p>

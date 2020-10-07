@@ -32,6 +32,7 @@ function App() {
             .then(res => res.json())
             .then((data) => {
                 function findNewArtist(data) {
+                    console.log(data)
                     var newArtist = data.tracks[getRandomInt(data.tracks.length - 1)].artists[0].id
                     if (viewedArtists.includes(newArtist)) {
                         findNewArtist(data)
@@ -126,35 +127,41 @@ function App() {
     }
 
     const dislikeArtist = (artistId) => {
-        let allArtists = viewedArtists
-        allArtists.push(artistId)
-        setViewedArtist(allArtists)
+        if (likedArtists.length === 0) {
 
-        let reqObj = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + authToken,
-            }
-        }
-        var last5 = []
-        const reversedArtists = likedArtists.slice(0).reverse()
-        let i = 0
-        for (i = 0; i < 5; i++) {
-            last5.push(reversedArtists[i])
-        }
-        fetch("https://api.spotify.com/v1/recommendations?seed_artists=" + last5.concat(), reqObj)
-            .then(res => res.json())
-            .then((data) => {
-                function findNewArtist(data) {
-                    var newArtist = data.tracks[getRandomInt(data.tracks.length - 1)].artists[0].id
-                    if (viewedArtists.includes(newArtist)) {
-                        findNewArtist(data)
-                    } else {setArtist(newArtist)}
+        } else {
+            let allArtists = viewedArtists
+            allArtists.push(artistId)
+            setViewedArtist(allArtists)
+
+            let reqObj = {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + authToken,
                 }
-                findNewArtist(data)
-            })
+            }
+            var last5 = []
+            const reversedArtists = likedArtists.slice(0).reverse()
+            let i = 0
+            for (i = 0; i < 5; i++) {
+                last5.push(reversedArtists[i])
+            }
+            fetch("https://api.spotify.com/v1/recommendations?seed_artists=" + last5.concat(), reqObj)
+              .then(res => res.json())
+              .then((data) => {
+                  function findNewArtist(data) {
+                      console.log(data)
+                      var newArtist = data.tracks[getRandomInt(data.tracks.length - 1)].artists[0].id
+                      if (viewedArtists.includes(newArtist)) {
+                          findNewArtist(data)
+                      } else {setArtist(newArtist)}
+                  }
+                  findNewArtist(data)
+              })
+        }
+
     }
 
 
@@ -163,11 +170,12 @@ function App() {
             return (
                 <div className="App container" style={{height: "100vh"}}>
                     <NavBar></NavBar>
-                    <SwipeApp   authToken = {authToken}
-                                likeArtist = {likeArtist}
-                                dislikeArtist = {dislikeArtist}
-                                Artist = {artist}
-                    ></SwipeApp>
+                    <SwipeApp
+                      authToken = {authToken}
+                      likeArtist = {likeArtist}
+                      dislikeArtist = {dislikeArtist}
+                      Artist = {artist}
+                      />
                 </div>
             );
         } else {
@@ -176,7 +184,7 @@ function App() {
 
     } else if (view === "categories"){
         return (
-            <ChooseSeedCategories authToken = {authToken} setNewCategoriesCallback = {setNewCategoriesCallback}></ChooseSeedCategories>
+            <ChooseSeedCategories authToken = {authToken} setNewCategoriesCallback = {setNewCategoriesCallback}/>
         )
     } else if (view === "login"){
         return (

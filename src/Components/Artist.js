@@ -4,7 +4,6 @@ import Track from "./Track";
 
 
 function Artist(props) {
-    //console.log(props)
     const [data, setData] = useState({artistId: props.artistId});
     const [artist, setArtist] = useState(null)
     const [tracks, setTracks] = useState(null)

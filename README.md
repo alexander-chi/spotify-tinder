@@ -1,3 +1,9 @@
+Tinder but for Spotify! A react demo to help in my job hunt
+
+[live demo](https://spotifynder.demo.atcm.pw/)
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

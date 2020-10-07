@@ -40,6 +40,11 @@ function SwipeApp(props) {
                 </div>
 
             </div>
+          <div className={'d-flex mt-5'}>
+            <div className={'mx-auto'}>
+              <h2>No sounds? Not all track/artists have previews available, try skipping ahead to the next songs</h2>
+            </div>
+          </div>
         </>
     )
 

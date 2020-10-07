@@ -18,7 +18,7 @@ function App() {
     const [artist, setArtist] = useState(null)
     const [viewedArtists, setViewedArtist] = useState([])
 
-    let setNewCategoriesCallback = (newCategories) => {
+    const setNewCategoriesCallback = (newCategories) => {
         setSeedCategories(newCategories);
         let reqObj = {
             method: 'GET',
@@ -128,7 +128,7 @@ function App() {
 
     const dislikeArtist = (artistId) => {
         if (likedArtists.length === 0) {
-
+            setNewCategoriesCallback(seedCategories)
         } else {
             let allArtists = viewedArtists
             allArtists.push(artistId)
@@ -193,12 +193,13 @@ function App() {
                     height: "100vh"
                 }}>
                 <div className="w-100 mx-5">
+                    <h1>This is a React demo</h1>
                     <p>Please login to spotify to use this application</p>
                     <SpotifyLogin clientId={clientId}
                                   redirectUri={redirectUri}
                                   onSuccess={onSuccess}
                                   onFailure={onFailure}
-                                  className="btn spotifyGreenButton btn-large btn-block"
+                                  className="btn w-50 spotifyGreenButton"
                     />
                 </div>
 

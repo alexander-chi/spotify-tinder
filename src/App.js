@@ -1,13 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import './App.css';
-import SpotifyLogin from 'react-spotify-login';
-import { clientId, redirectUri } from './settings';
-import ls from 'local-storage';
+import React, {useEffect, useState} from 'react'
+import './App.css'
+
+import ls from 'local-storage'
+import api from './lib/api'
+
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
 
 import NavBar from "./Components/NavBar";
 
 import SwipeApp from "./Components/SwipeApp";
 import ChooseSeedCategories from "./Components/ChooseSeedCategories";
+
+
+import {UserContext, UserContextProvider} from './Components/context/UserContext'
+import Login from "./Components/Login";
+
+
+
 function App() {
     const [authToken , setAuthToken] = useState(null)
     const [user, setUser] = useState(null)
@@ -17,6 +31,8 @@ function App() {
     const [likedArtists, setLikedArtists] = useState([])
     const [artist, setArtist] = useState(null)
     const [viewedArtists, setViewedArtist] = useState([])
+
+    window.api = api
 
     const setNewCategoriesCallback = (newCategories) => {
         setSeedCategories(newCategories);
@@ -164,53 +180,42 @@ function App() {
 
     }
 
-
-    if (view === "app") {
-        if (artist) {
-            return (
-                <div className="App container" style={{height: "100vh"}}>
-                    <NavBar></NavBar>
-                    <SwipeApp
-                      authToken = {authToken}
-                      likeArtist = {likeArtist}
-                      dislikeArtist = {dislikeArtist}
-                      Artist = {artist}
-                      />
-                </div>
-            );
-        } else {
-            return <p>Loading</p>
-        }
-
-    } else if (view === "categories"){
-        return (
-            <ChooseSeedCategories authToken = {authToken} setNewCategoriesCallback = {setNewCategoriesCallback}/>
-        )
-    } else if (view === "login"){
-        return (
-            <div className="text-center d-flex align-items-center landingBackground"
-                style={{
-                    height: "100vh"
-                }}>
-                <div className="w-100 mx-5">
-                    <h1>This is a React demo</h1>
-                    <p>Please login to spotify to use this application</p>
-                    <SpotifyLogin clientId={clientId}
-                                  redirectUri={redirectUri}
-                                  onSuccess={onSuccess}
-                                  onFailure={onFailure}
-                                  className="btn w-50 spotifyGreenButton"
-                    />
-                </div>
-
-            </div>
-        );
-    } else {
-        return (
-            <p>Loading</p>
-        )
-    }
-
+    return (
+      <UserContextProvider>
+          <UserContext.Consumer>
+              {value => {
+                  return (
+                    value.loggedIn ? <NavBar><Router>
+                        <Routes>
+                            <Route path={'/swipe'}>
+                                {() => {
+                                    if (artist) {
+                                        return (
+                                          <div className="App container" style={{height: "100vh"}}>
+                                              <NavBar></NavBar>
+                                              <SwipeApp
+                                                authToken = {authToken}
+                                                likeArtist = {likeArtist}
+                                                dislikeArtist = {dislikeArtist}
+                                                Artist = {artist}
+                                              />
+                                          </div>
+                                        );
+                                    } else {
+                                        return <p>Loading</p>
+                                    }
+                                }}
+                            </Route>
+                            {/*<Route path={'/categories'}>
+                                <ChooseSeedCategories authToken = {authToken} setNewCategoriesCallback = {setNewCategoriesCallback}/>
+                            </Route>*/}
+                        </Routes>
+                    </Router></NavBar> : <Login/>
+                  )
+              }}
+          </UserContext.Consumer>
+      </UserContextProvider>
+    )
 }
 
 

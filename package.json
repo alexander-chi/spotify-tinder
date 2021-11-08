@@ -9,6 +9,7 @@
     "local-storage": "^2.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^6.0.1",
     "react-scripts": "3.4.3",
     "react-spotify-login": "^0.9.1",
     "react-tinder-card": "^1.2.0"

@@ -15,7 +15,8 @@ export default {
   recommendations: {
     get: () => {
 
-    }
+    },
+    getAvailableGenreSeeds: (authedFetch) => authedFetch("https://api.spotify.com/v1/recommendations/available-genre-seeds")
   }
 
 

@@ -54,7 +54,6 @@ export function UserContextProvider({children}) {
   useEffect(() => {
     console.log(userData)
     api.spotify.me.get(authedFetch)
-      .then(res => res.json())
       .then(async data => {
         localStorage.setItem('spotifynder_user_token', userData.accessToken)
         await _updateUserData({
@@ -116,7 +115,7 @@ export function UserContextProvider({children}) {
       .catch(err => {
         console.error(1234, err)
       })
-    return response;
+    return response.json();
   }
 
   return (
